@@ -2,7 +2,7 @@ module Api
     module V1
         class SessionsController < ApplicationController
             def create
-                @user = User.find_by(email: session_params[:email])
+                @user = User.find_by(email: session_params[:email]) || User.find_by(username: session_params[:username])
               
                 if @user && @user.authenticate(session_params[:password])
                   login!
@@ -16,7 +16,7 @@ module Api
                 if logged_in? && current_user
                   render json: { logged_in: true, user: current_user }
                 else
-                  render json: { logged_in: false, message: 'no such user' }
+                  render json: { logged_in: false, user: {}, message: 'no such user' }
                 end
             end
             
