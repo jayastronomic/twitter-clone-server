@@ -22,7 +22,7 @@ module Api
             
             def destroy
                 logout!
-                render json: { status: 200, logged_out: true }
+                render json: { status: 200, logged_in: false, user: {} }
             end
             
               private
