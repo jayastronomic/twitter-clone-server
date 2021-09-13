@@ -16,6 +16,12 @@ module Api
                 render json: tweet
             end
 
+            def user_tweet_index
+                user = current_user
+                user_tweets = user.tweets.order("created_at DESC")
+                render json: user_tweets
+            end
+
 
             private 
 
