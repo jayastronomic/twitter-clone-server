@@ -19,7 +19,7 @@ module Api
             def user_tweet_index
                 user = current_user
                 user_tweets = user.tweets.order("created_at DESC")
-                render json: user_tweets
+                render json: user_tweets, current_user_id: user.id
             end
 
 

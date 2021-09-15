@@ -1,7 +1,7 @@
 module Api 
     module V1
         class TweetSerializer < ActiveModel::Serializer
-            attributes :id, :content, :tweet_user_username, :tweet_user_name, :liked_by_current_user  
+            attributes :id, :user_id, :content, :tweet_user_username, :tweet_user_name, :liked_by_current_user  
 
 
             def tweet_user_username
