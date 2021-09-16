@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get '/user_tweets', to: 'tweets#user_tweet_index'
         resources :likes, only: [:index, :create, :destroy]
       end
+      resources :tweets, only: [:destroy]
       get "/all_likes", to: 'likes#like_index'
       resources :tweets, only: [:create, :index]
     end

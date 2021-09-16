@@ -22,6 +22,12 @@ module Api
                 render json: user_tweets, current_user_id: user.id
             end
 
+            def destroy
+                tweet = Tweet.find(params[:id])
+                tweet.destroy
+                render json: tweet, destroyed: true
+            end 
+
 
             private 
 
