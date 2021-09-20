@@ -4,7 +4,8 @@ module Api
 
 
             def index
-                tweets = Tweet.order("created_at DESC")
+                user = current_user
+                tweets = Tweet.where("user_id IN (?) OR user_id = ?", user.following_ids, user.id).order('created_at DESC')
                 render json: tweets, current_user_id: current_user.id
             end
 
