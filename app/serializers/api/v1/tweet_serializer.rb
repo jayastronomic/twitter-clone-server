@@ -1,7 +1,8 @@
 module Api 
     module V1
         class TweetSerializer < ActiveModel::Serializer
-            attributes :id, :user_id, :content, :tweet_user_username, :tweet_user_name, :liked_by_current_user, :destroyed
+            include Rails.application.routes.url_helpers
+            attributes :id, :user_id, :content, :tweet_user_username, :tweet_user_name, :liked_by_current_user, :destroyed, :avatar_exist, :avatar_url
             def tweet_user_username
                 object.user.username
             end
@@ -16,6 +17,18 @@ module Api
 
             def destroyed
                 @instance_options[:destroyed]
+            end
+
+            def avatar_exist
+                object.user.avatar.attached?
+            end
+
+            def avatar_url
+                if avatar_exist
+                    url_for(object.user.avatar)
+                else
+                    nil
+                end
             end
 
 

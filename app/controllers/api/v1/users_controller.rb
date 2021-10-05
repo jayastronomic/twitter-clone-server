@@ -3,7 +3,7 @@ module Api
       class UsersController < ApplicationController
         def index
           users = User.all
-          render json: users 
+          render json: users.with_attached_avatar
         end
 
 
@@ -43,7 +43,9 @@ module Api
               :location, 
               :email, 
               :password, 
-              :password_confirmation)
+              :password_confirmation,
+              :avatar
+              )
         end
 
 

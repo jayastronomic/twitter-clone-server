@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
+    has_one_attached :avatar
 
     # Will return an array of follows for the given user instance
     has_many :received_follows, foreign_key: :followed_user_id, class_name: "Follow"
