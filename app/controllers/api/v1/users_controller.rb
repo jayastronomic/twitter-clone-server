@@ -26,8 +26,8 @@ module Api
 
         def follow
           user = current_user
-          users = User.where.not(id: current_user.id)
-          render json: users
+          users = User.where.not(id: user.id)
+          render json: users, current_user_id: user.id
         end
 
     

@@ -2,14 +2,14 @@ module Api
   module V1
     class UserSerializer < ActiveModel::Serializer
       include Rails.application.routes.url_helpers
-      attributes :id, :username, :name, :bio, :location, :website, :logged_in, :total_tweets, :followers, :followings, :month_joined, :year_joined, :avatar_exist, :avatar_url
+      attributes :id, :username, :name, :bio, :location, :website, :logged_in, :total_tweets, :followers, :followings, :month_joined, :year_joined, :avatar_exist, :avatar_url, :followed_user, :follows_you
 
       def logged_in
         @instance_options[:logged_in]
       end
 
       def total_tweets
-        object.tweets.length
+        object.tweets.count
       end
 
       def followers
@@ -55,8 +55,15 @@ module Api
         object.avatar.attached?
       end
 
+      def followed_user
+        Follow.where(follower_id: @instance_options[:current_user_id], followed_user_id: object.id).exists?
+      end 
+       
+       def follows_you
+        Follow.where(follower_id: object.id , followed_user_id: @instance_options[:current_user_id]).exists?
+      end
 
-
+    
 
     end
   end
