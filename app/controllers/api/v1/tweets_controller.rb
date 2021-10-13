@@ -33,6 +33,13 @@ module Api
                 render json: tweet, destroyed: true
             end 
 
+            def update
+                tweet = Tweet.find(params[:id])
+                tweet.update(content: params[:content])
+                updatedTweet = tweet
+                render json: updatedTweet
+            end
+
 
             private 
 
