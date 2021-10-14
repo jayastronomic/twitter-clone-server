@@ -16,6 +16,8 @@ module Api
                 render json: @follow, destroyed: true
             end
 
+            
+
 
             private 
 

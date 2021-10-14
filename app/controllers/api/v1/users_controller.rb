@@ -7,7 +7,6 @@ module Api
         end
 
 
-
         def create
             @user = User.new(user_params)
             if @user.save
@@ -28,6 +27,18 @@ module Api
           user = current_user
           users = User.where.not(id: user.id)
           render json: users, current_user_id: user.id
+        end
+
+        def followers
+          user = current_user
+          user_followers = user.followers
+          render json: user_followers, current_user_id: user.id
+        end
+
+        def followings
+          user = current_user
+          user_followings = user.followings
+          render json: user_followings, current_user_id: user.id
         end
 
     
