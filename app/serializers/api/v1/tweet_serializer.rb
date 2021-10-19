@@ -2,7 +2,7 @@ module Api
     module V1
         class TweetSerializer < ActiveModel::Serializer
             include Rails.application.routes.url_helpers
-            attributes :id, :user_id, :content, :tweet_user_username, :tweet_user_name, :liked_by_current_user, :destroyed, :avatar_exist, :avatar_url
+            attributes :id, :user_id, :content, :tweet_user_username, :tweet_user_name, :liked_by_current_user, :destroyed, :avatar_exist, :avatar_url, :time_created, :date_created
             def tweet_user_username
                 object.user.username
             end
@@ -30,6 +30,14 @@ module Api
                     nil
                 end
             end
+
+            def time_created
+                object.created_at.strftime('%H:%M %p')
+            end
+
+            def date_created
+                object.created_at.strftime('%b %d, %Y')
+            end 
 
 
         end
