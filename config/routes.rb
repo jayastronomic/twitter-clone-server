@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         resources :likes, only: [:index, :create, :destroy]
       end
       get "/all_likes", to: 'likes#like_index'
-      resources :tweets, only: [:create, :index, :destroy, :update]
+      resources :tweets, only: [:create, :index, :destroy, :update, :show]
       resources :follows, only: [:create, :destroy]
       get "/follow", to: "users#follow"
     end

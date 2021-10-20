@@ -9,7 +9,8 @@ module Api
                     tweets = Tweet.where("user_id IN (?) OR user_id = ?", user.following_ids, user.id).order('created_at DESC')
                     render json: tweets, current_user_id: current_user.id
                 else
-                    render json: { status: "USER_DOES_NOT_EXIST" }
+                    tweets = []
+                    render json: tweets
                 end
             end
 
@@ -38,6 +39,12 @@ module Api
                 tweet.update(content: params[:content])
                 updatedTweet = tweet
                 render json: updatedTweet
+            end
+
+            def show 
+                user = current_user
+                tweet = Tweet.find(params[:id])
+                render json: tweet, current_user_id: user.id
             end
 
 

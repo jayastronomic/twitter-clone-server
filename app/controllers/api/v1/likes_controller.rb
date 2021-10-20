@@ -3,8 +3,8 @@ module Api
         class LikesController < ApplicationController
             def index
                 user = current_user
-                user_liked_tweets = user.liked_tweets.reverse
-                render json: user_liked_tweets, current_user_id: user.id
+                user_likes = user.likes.order("created_at DESC")
+                render json: user_likes, current_user_id: user.id
             end 
             
             def like_index
@@ -19,7 +19,7 @@ module Api
                 else
                     like = Like.new(like_params)
                     like.save
-                    render json: like, created: true
+                    render json: like, created: true, current_user_id: like.user.id
                 end
             end
 
