@@ -23,6 +23,12 @@ module Api
           render json: user
         end
 
+        def update_avi
+          user = current_user
+          user.avatar.attach(params[:avatar])
+          render json: user
+        end
+
         def follow
           user = current_user
           users = User.where.not(id: user.id)
@@ -55,7 +61,8 @@ module Api
               :email, 
               :password, 
               :password_confirmation,
-              :avatar
+              
+              :background
               )
         end
 

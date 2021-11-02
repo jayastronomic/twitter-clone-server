@@ -2,7 +2,7 @@ module Api
   module V1
     class UserSerializer < ActiveModel::Serializer
       include Rails.application.routes.url_helpers
-      attributes :id, :username, :name, :bio, :location, :website, :logged_in, :total_tweets, :followers, :followings, :month_joined, :year_joined, :avatar_exist, :avatar_url, :followed_user, :follows_you
+      attributes :id, :username, :name, :bio, :location, :website, :logged_in, :total_tweets, :followers, :followings, :month_joined, :year_joined, :avatar_exist, :avatar_url, :followed_user, :follows_you, :background_exist, :background_url
 
       def logged_in
         @instance_options[:logged_in]
@@ -53,6 +53,18 @@ module Api
 
       def avatar_exist
         object.avatar.attached?
+      end
+
+      def background_exist
+        object.background.attached?
+      end
+
+      def background_url
+        if background_exist
+          url_for(object.background)
+        else
+            nil
+         end
       end
 
       def followed_user

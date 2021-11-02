@@ -22,10 +22,17 @@ module Api
                 render json: tweet
             end
 
+            def auth_user_tweet_index
+                auth_user = current_user
+                auth_user_tweets = auth_user.tweets.order("created_at DESC")
+                render json: auth_user_tweets, current_user_id: auth_user.id
+            end
+
             def user_tweet_index
-                user = current_user
+                auth_user = current_user
+                user = User.find(params[:user_id])
                 user_tweets = user.tweets.order("created_at DESC")
-                render json: user_tweets, current_user_id: user.id
+                render json: user_tweets, current_user_id: auth_user.id 
             end
 
             def destroy
