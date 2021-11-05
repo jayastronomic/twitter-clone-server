@@ -2,10 +2,17 @@ module Api
     module V1
         class LikesController < ApplicationController
             def index
-                user = current_user
-                user_likes = user.likes.order("created_at DESC")
-                render json: user_likes, current_user_id: user.id
+                auth_user = current_user
+                auth_user_likes = auth_user.likes.order("created_at DESC")
+                render json: auth_user_likes, current_user_id: auth_user.id
             end 
+
+            def user_likes
+                auth_user = current_user
+                user = User.find(params[:user_id])
+                user_likes  = user.likes.order("created_at DESC")
+                render json: user_likes, current_user_id: auth_user.id
+            end
             
             def like_index
                 likes = Like.all

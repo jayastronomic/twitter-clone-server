@@ -6,6 +6,12 @@ module Api
           render json: users.with_attached_avatar
         end
 
+        def show
+          auth_user = current_user
+          user = User.find(params[:id])
+          render json: user, current_user_id: auth_user.id
+        end
+
 
         def create
             @user = User.new(user_params)
